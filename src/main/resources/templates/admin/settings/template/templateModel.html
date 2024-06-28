@@ -1,0 +1,20 @@
+<!--  Template Modal-->
+<div th:fragment="templateModal" data-bs-backdrop="static" class="modal sub-modal" th:id="templateModal+${item.uKey}" tabindex="-1"
+     aria-labelledby="templateModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-6" id="templateModalLabel">Template View </h1>
+        <div class="modal-header__icon me-2">
+          <button type="button" class="btn-close btn-close-m" data-bs-dismiss="modal" aria-label="Close">
+            <i class='bx bx-x'></i></button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-sub-setting-body">
+          <span th:utext="${item.templateBody}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

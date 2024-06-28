@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Group Leads</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1 th:text="${groupName}"> Group</h1>
+                        <a th:href="@{/admin/group/list}" class="btn btn-white btn-sm"><i class='bx bx-plus'></i>Go Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-10 col-lg-11">
+                    <div th:insert="~{fragments/_searching_layout}" id="searching"></div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1">
+                    <div class="col-auto">
+                        <a th:href="@{/admin/group/{uKey}/lead/list(uKey=${uKey})}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                                class='bx bx-filter-alt'></i>Clear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div th:insert="~{fragments/alert}" id="alert"></div>
+                <div class="col-sm-12">
+                    <div class="list-table-body table-responsive">
+                        <form th:action="@{/admin/group/{uKey}/lead/add(uKey=${uKey})}" th:object="${groupLeadsListDto}" method="post" >
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile No</th>
+                                <th>Lead</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item,iter: ${list}">
+                                <td class="check-subscriber-list">
+                                    <input  type="checkbox" th:attr="name='leadDtoList[__${iter.index}__].uKey'" th:value="${item.uKey}">
+                                </td>
+                                <td class="text-capitalize" th:text="${item.leadName}">
+                                </td>
+                                <td th:text="${item.email}">
+                                </td>
+                                <td th:text="${item.mobileNumber}"></td>
+                                <td th:text="${item.stage}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn--submit">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{fragments/_pagination_layout}" id="pagination"></div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

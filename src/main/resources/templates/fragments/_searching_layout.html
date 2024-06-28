@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="filter-form">
+      <form th:action="@{${pageurlPrefix}}" method="get" class="row d-flex align-item-center">
+        <input type="hidden" name="page" th:value="1"/>
+        <div class="col-sm-2">
+          <label class="form-label">Record</label>
+          <select class="form-control form-select" id="size" name="size">
+            <option th:each="sz,iter : ${sizeList}" th:value="${sz}" th:text="${iter.first ? 'Default' : sz}"
+                    th:selected="${sz == size}"></option>
+          </select>
+        </div>
+        <div class="col-sm-2" th:if="${!#lists.isEmpty(statusList)}">
+          <label class="form-label" >Status</label>
+          <select class="form-control form-select" id="status" name="status">
+            <option value="">Select Status</option>
+            <option th:each="p : ${statusList}" th:value="${p}" th:text="${p}" th:selected="${p == status}"></option>
+          </select>
+        </div>
+        <div class="col-sm-2" th:if="${!#lists.isEmpty(templateList)}">
+          <label class="form-label" >Template</label>
+          <select class="form-control form-select" id="template" name="template">
+            <option value="">Select Template</option>
+            <option th:each="p : ${templateList}" th:value="${p}" th:text="${p}" th:selected="${p == template}"></option>
+          </select>
+        </div>
+        <div class="col-auto flex-grow-1">
+          <label class="form-label">Search</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <i class='bx bx-search-alt-2'></i>
+            </div>
+            <input type="search" class="form-control border-start-0" id="search" name="search" th:value="${search}"
+                   aria-describedby="search" placeholder="Search">
+          </div>
+        </div>
+        <input type="hidden" name="sortBy" th:value="${sortBy}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+        <div class="col-auto mt-4">
+          <label class="form-label d-none">Search</label>
+          <button type="submit" class="btn btn-primary"><i class='bx bx-search-alt-2'></i> Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

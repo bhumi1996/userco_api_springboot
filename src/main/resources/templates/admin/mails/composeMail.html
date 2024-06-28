@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_email_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Mail</title>
+    <script>
+        tinymce.init({
+            selector: 'textarea#body',
+            height: 300,
+            plugins: [],
+            menubar: false,
+            statusbar: false,
+            content_style: 'body{font-family:Arial,sans-serif;font-size:16px}'
+        });
+    </script>
+
+
+    <style type="text/css">
+        .email-body {
+            padding: 20px 30px;
+        }
+
+        .email-body input,
+        .email-body select,
+        .email-body textarea {
+            font-size: 13px;
+            margin: 0px 5px;
+            border-top: none;
+            border-left: none;
+            border-bottom: none;
+            border-right: none;
+            border-radius: 0;
+        }
+
+        .email-body input:focus, .email-body select:focus, .email-body textarea:focus {
+            box-shadow: none;
+            border-color: #bebebe;
+        }
+
+        .email-to, .email-from, .email-cc, .email-bcc, .email-template, .email-header {
+            border-bottom: 1px solid #e1e1e1;
+            margin: 25px 0px;
+            padding: 10px 0px;
+        }
+
+        .email-content textarea {
+            border-radius: 0px;
+            font-size: 13px;
+            padding: 10px;
+        }
+
+        .email-to:hover, .email-from:hover, .email-cc:hover, .email-bcc:hover, .email-template:hover, .email-header:hover {
+            border-bottom: 1px solid #bebebe;
+        }
+
+        .email-body .form-label {
+            margin-bottom: 0px;
+            width: 60px;
+        }
+
+        .tox:not(.tox-tinymce-inline) .tox-editor-header {
+            box-shadow: none !important;
+        }
+
+    </style>
+
+</head>
+<body>
+<th:block layout:fragment="mails">
+    <section class="setting-body-wrapper email-compose">
+
+        <div th:insert="~{fragments/alert}" id="alert"></div>
+        <form sec:authorize="hasAuthority('EMAILDTO_SEND')" th:action="@{/admin/settings/mail/sender/compose}" th:object="${mailDto}" method="post" enctype="multipart/form-data">
+            <div class="setting-header email-heading d-flex justify-content-between align-items-center">
+                <div class="email-heading_title"><h1>New Email</h1></div>
+                <div class="email-heading_action">
+                    <a th:href="@{/admin/settings/email/template/list}" type="button" class="btn btn-white btn-sm"><i class='bx bx-arrow-back' ></i> Back</a>
+                </div>
+            </div>
+            <div class="email-body">
+                <input  type="text" class="form-control" hidden th:field="*{error}">
+                <div class="alert alert-warning" th:if="${#fields.hasErrors('error')}" th:errors="*{error}"></div>
+                <div class="row g-3 align-items-center">
+                    <div class="email-to d-flex align-items-center">
+                        <label for="emailTo" class="form-label">To</label>
+                        <input  class="form-control" type="email" placeholder="Enter Sender Email ID" th:field="*{emailTo}" id="emailTo" multiple>
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('emailTo')}" th:errorclass="error" th:errors="*{emailTo}" />
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="email-from d-flex align-items-center">
+                        <label for="emailFrom" class="form-label">From</label>
+                        <input type="email" placeholder="Enter From Email" th:field="*{emailFrom}" id="emailFrom"
+                               multiple
+                               class="form-control">
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('emailFrom')}" th:errorclass="error" th:errors="*{emailFrom}" />
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="email-cc d-flex align-items-center">
+                        <label for="emailCc" class="form-label">CC</label>
+                        <input type="email" placeholder="Enter CC" th:field="*{emailCc}" id="emailCc" multiple
+                               class="form-control">
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('emailCc')}" th:errorclass="error" th:errors="*{emailCc}" />
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="email-bcc d-flex align-items-center">
+                        <label for="emailBcc" class="form-label">BCC</label>
+                        <input type="email" placeholder="Enter BCC" th:field="*{emailBcc}" id="emailBcc" multiple
+                               class="form-control">
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('emailBcc')}" th:errorclass="error" th:errors="*{emailBcc}" />
+                </div>
+                <div class="row g-3 align-items-center">
+
+                    <div class="email-template d-flex align-items-center">
+                        <label for="mailTemplate" class="form-label ">Template</label>
+                        <select class="form-select pe-none" aria-label="Default select example" id="mailTemplate"
+                                th:field="*{mailTemplate}">
+                            <option value="Default" selected>Default</option>
+                        </select>
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('mailTemplate')}" th:errorclass="error" th:errors="*{mailTemplate}" />
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="email-header d-flex align-items-center">
+                        <label class="form-label" for="subject">Subject</label>
+                        <input type="text" placeholder="Enter Email Subject" class="form-control"
+                               th:field="*{subject}" id="subject">
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('subject')}" th:errorclass="error" th:errors="*{subject}" />
+                </div>
+                <div class="row">
+                    <div class="email-content align-items-center mt-0 p-0">
+                        <textarea type="text"  th:field="*{body}" cols="30" rows="15" class="form-control tinymce" id="body"
+                                  placeholder="Write your mail here" ></textarea>
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('body')}" th:errorclass="error" th:errors="*{body}" />
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="email-attached d-flex align-items-center p-0"><label class="form-label" for="attached">Attached</label>
+                        <input id="attached" class="d-inline-block" type="file" th:field="*{attachment}"/>
+                    </div>
+                    <p class="hints mt-2">Only PNG, JPG format allowed. With max size 10MB</p>
+                </div>
+                <div class="email-heading_action mt-4 mb-2">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class='bx bx-mail-send'></i> Send</button>
+                </div>
+
+            </div>
+        </form>
+    </section>
+</th:block>
+</body>
+</html>
+

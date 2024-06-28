@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Email Configuration</title>
+</head>
+<body>
+<th:block layout:fragment="settings">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Add Email Configuration</h1>
+                        <a th:href="@{/admin/settings/email/config/list}" class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i
+                                class='bx bx-arrow-back'></i><span class="go-back">Go Back</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <form th:action="@{/admin/settings/email/config/add}" th:object="${emailConfigurationDto}"
+                              method="post" class="row">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name<span
+                                        class="text-danger">*</span> <span class="text-danger"
+                                                                           th:if="${#fields.hasErrors('name')}"
+                                                                           th:errorclass="error"
+                                                                           th:errors="*{name}"/></label>
+                                <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="encoding" class="form-label">Encoding<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('encoding')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="encoding" th:field="*{encoding}" >
+                                    <option value="">Select Encoding</option>
+                                    <option th:each="encode : ${encodingList}" th:value="${encode}" th:text="${encode}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="port" class="form-label">Port<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('port')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="port" th:field="*{port}" >
+                                    <option value="">Select Port</option>
+                                    <option th:each="port : ${portList}" th:value="${port}" th:text="${port}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="protocol" class="form-label">Protocol<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('protocol')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="protocol" th:field="*{protocol}" >
+                                    <option value="">Select Protocol</option>
+                                    <option th:each="proto : ${protocolList}" th:value="${proto}" th:text="${proto}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="startTlsEnable" class="form-label">Start Tls Enable<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('startTlsEnable')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="startTlsEnable" th:field="*{startTlsEnable}" >
+                                    <option value="">Select Start Tls Enable</option>
+                                    <option th:each="bool : ${booleanList}" th:value="${bool}" th:text="${bool}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="smtpAuth" class="form-label">Smtp Auth<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('smtpAuth')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="smtpAuth" th:field="*{smtpAuth}" >
+                                    <option value="">Select Smtp Auth</option>
+                                    <option th:each="bool : ${booleanList}" th:value="${bool}" th:text="${bool}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hostName" class="form-label">Host Name<span class="text-danger">*</span>
+                                    <span  th:each="err : ${#fields.errors('hostName')}" th:text="${err}"
+                                        class="text-danger"/></label>
+                                <input type="text" class="form-control" th:field="*{hostName}" id="hostName"
+                                       placeholder="Host Name" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="fromMail" class="form-label">From Mail<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('fromMail')}" th:text="${err}"
+                                        class="text-danger"/>
+                                </label>
+                                <input type="text" class="form-control" th:field="*{fromMail}" id="fromMail"
+                                       placeholder="From Mail" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="replyTo" class="form-label">Reply To<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('replyTo')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <input type="text" class="form-control" th:field="*{replyTo}" id="replyTo"
+                                       placeholder="Reply To" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="bcc" class="form-label">BCC<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('bcc')}" th:text="${err}" class="text-danger"/>
+                                </label>
+                                <input type="text" class="form-control" th:field="*{bcc}" id="bcc" placeholder="BCC" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="cc" class="form-label">CC<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('cc')}" th:text="${err}" class="text-danger"/>
+                                </label>
+                                <input type="text" class="form-control" th:field="*{cc}" id="cc" placeholder="CC" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="userName" class="form-label">User Name<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('userName')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <input type="text" class="form-control" th:field="*{userName}" id="userName"
+                                       placeholder="User Name" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('password')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <input type="text" class="form-control" th:field="*{password}" id="password"
+                                       placeholder="Password" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('status')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="status" th:field="*{status}" >
+                                    <option value="">Select Status</option>
+                                    <option th:each="state : ${statusList}" th:value="${state}" th:text="${state}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

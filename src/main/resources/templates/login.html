@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_auth_fragement}">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<th:block layout:fragment="website">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="img">
+                <img src="/images/loginphon.png" alt="">
+            </div>
+            <div class="login-container">
+                <form th:action="@{/login}" method="post" th:object="${loginRequestDto}">
+                    <img class="avatar" src="/images/profile.png" alt="">
+                    <h2>Welcome</h2>
+                    <div class="input-div one">
+                        <div class="i">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div>
+                            <h5 class="input-heading">Username</h5>
+                            <input type="text" class="input" th:field="*{userName}">
+                        </div>
+                    </div>
+                    <div class="input-div two">
+                        <div class="i">
+                            <i class="bi bi-file-lock2-fill"></i>
+                        </div>
+                        <div>
+                            <h5  class="input-heading">Password</h5>
+                            <input type="password" class="input" th:field="*{password}">
+                        </div>
+                    </div>
+                    <a href="#">Forgot Password ?</a>
+                    <input type="submit" class="btn login-btn" >
+                </form>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+</body>
+</html>

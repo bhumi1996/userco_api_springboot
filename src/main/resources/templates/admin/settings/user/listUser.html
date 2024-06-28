@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+</head>
+<body>
+<th:block layout:fragment="settings">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>User Management</h1>
+                        <a th:href="@{/admin/settings/user/add}" class="btn btn-white btn-sm"><i class='bx bx-plus'></i>Role</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-10 col-lg-11">
+                    <div th:insert="~{fragments/_searching_layout}" id="searching"></div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1">
+                    <div class="col-auto">
+                        <a th:href="@{/admin/settings/user/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                                class='bx bx-filter-alt'></i>Clear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div th:insert="~{fragments/alert}" id="alert"></div>
+                <div class="col-sm-12">
+                    <div class="list-table-body table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Sr. No</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mobile No.</th>
+                                <th scope="col">Profile</th>
+                                <th scope="col">Updated On</th>
+                                <th scope="col">Updated By</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${list}">
+                                <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
+                                <td th:text="${item.fullName}"></td>
+                                <td th:text="${item.email}"></td>
+                                <td th:text="${item.mobileNo}"></td>
+                                <td>
+                                    <img th:if="${item.profileImageUrl eq null}" th:src="@{/images/default_profile_image.png}"
+                                         alt="profile" class="rounded-circle list-user-img" width="30px" height="30px">
+                                    <img th:if="${item.profileImageUrl ne null}" th:src="@{${hostname}+${item.profileImageUrl}}" alt="profile" class="rounded-circle list-user-img" width="30px" height="30px">
+                                </td>
+                                <td th:text="${#dates.format(item.lastModifiedDate,'dd MMM yyyy')}"></td>
+                                <td th:text="${item.lastModifiedBy}"></td>
+                                <td th:class="${item.status}"><span class="table-status"><i
+                                        class='bx bxs-circle'></i><span th:text="${item.status}"></span></span></td>
+                                <td>
+                                    <div class="actions">
+                                        <a class="me-2"  th:href="@{/admin/settings/role/delete/{uKey}(uKey=${item.uKey})}"  onclick="return confirmDelete()" data-bs-toggle="tooltip" data-bs-title="delete"><i
+                                                class='bx bx-trash text-danger'></i></a>
+                                        <a  th:href="@{/admin/settings/role/edit/{uKey}(uKey=${item.uKey})}" data-bs-toggle="tooltip" data-bs-title="Edit"><i
+                                                class='bx bxs-edit-alt'></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{fragments/_pagination_layout}" id="pagination"></div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

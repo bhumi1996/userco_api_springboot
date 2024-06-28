@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{fragments/_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Layout</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="settings">
+        <div class="settings-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-2 p-0">
+                        <div class="settings-heading">
+                            <h1>Email</h1>
+                            <p><i class='bx bxs-home fs-6'></i><strong>Emails List</strong></p>
+                            <ul>
+                                <li><a th:href="@{/admin/settings/mail/sender/compose}" class="d-flex align-items-center"><i class='bx bxs-inbox fs-5 me-2'></i>Inbox</a></li>
+                                <li><a th:href="@{#}" class="d-flex align-items-center"><i class='bx bx-mail-send fs-5 me-2' ></i>Sent Mails</a></li>
+                                <li><a th:href="@{#}" class="d-flex align-items-center"><i class='bx bx-envelope-open fs-5 me-2' ></i>All Mails</a></li>
+                                <li><a th:href="@{#}" class="d-flex align-items-center"><i class='bx bx-folder-minus fs-5 me-2' ></i>Drafts</a></li>
+                                <li><a th:href="@{#}" class="d-flex align-items-center"><i class='bx bx-star fs-5 me-2' ></i>Favourites</a></li>
+                                <li><a th:href="@{#}" class="d-flex align-items-center"><i class='bx bx-error-alt fs-5 me-2' ></i>Spam</a></li>
+                                <li><a th:href="@{#}" class="d-flex align-items-center"><i class='bx bxs-trash-alt fs-5 me-2' ></i>Trash</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-10">
+                        <th:block layout:fragment="mails">
+                            <h1>here emails part will be loaded</h1>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

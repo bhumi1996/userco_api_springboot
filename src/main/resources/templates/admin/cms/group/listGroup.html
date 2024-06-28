@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Group List</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Group List</h1>
+                        <a th:href="@{/admin/group/add}" class="btn btn-white btn-sm"><i class='bx bx-plus'></i>Group</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-10 col-lg-11">
+                    <div th:insert="~{fragments/_searching_layout}" id="searching"></div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1">
+                    <div class="col-auto">
+                        <a th:href="@{/admin/group/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                                class='bx bx-filter-alt'></i>Clear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div th:insert="~{fragments/alert}" id="alert"></div>
+                <div class="col-sm-12">
+                    <div class="list-table-body table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Group Name</th>
+                                <th>Updated On</th>
+                                <th>Updated By</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${list}">
+                                <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
+                                <td th:text="${item.groupName}"></td>
+                                <td th:text="${#dates.format(item.lastModifiedDate,'dd MMM yyyy')}"></td>
+                                <td th:text="${item.lastModifiedBy}"></td>
+                                <td th:class="${item.status}"><span class="table-status"><i
+                                        class='bx bxs-circle'></i><span th:text="${item.status}"></span></span></td>
+                                <td>
+                                    <div class="btn-group application-action">
+                                        <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                                           role="button">
+                                            <i class='bx bx-dots-vertical-rounded'></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end me-3">
+                                            <li data-bs-toggle="tooltip" data-bs-title="Note">
+                                                <a class="dropdown-item" target="_blank"
+                                                   th:href="@{/admin/group/{uKey}/lead/list(uKey=${item.uKey})}">
+                                                <i class="bi bi-eye me-2"></i><span>View Lead</span>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-title="View">
+                                                <a class="dropdown-item" target="_blank"
+                                                   th:href="@{/admin/group/{uKey}/lead/add(uKey=${item.uKey})}">
+                                                   <i class="bi bi-clipboard2-plus me-2"></i><span>Assign Lead</span>
+                                                </a>
+                                            </li>
+                                            <li data-bs-toggle="tooltip" data-bs-title="Email">
+                                                <a class="dropdown-item" target="_blank"
+                                                   th:href="@{/admin/group/edit/{uKey}(uKey=${item.uKey})}"><i
+                                                        class='bx bxs-edit-alt'></i><span>Edit</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" target="_blank"
+                                                   th:href="@{/admin/group/delete/{uKey}(uKey=${item.uKey})}"   onclick="return confirmDelete()" >
+                                                    <i class='bx bx-trash text-danger'></i><span>Edit</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{fragments/_pagination_layout}" id="pagination"></div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

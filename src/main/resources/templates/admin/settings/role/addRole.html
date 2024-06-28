@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Role</title>
+</head>
+<body>
+<th:block layout:fragment="settings">
+  <section class="setting-body-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 p-0">
+          <div class="setting-header">
+            <h1>Create Role</h1>
+            <a th:href="@{/admin/settings/role/list}" class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i class='bx bx-arrow-back' ></i><span class="go-back">Go Back</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="setting-body">
+            <form th:action="@{/admin/settings/role/add}" th:object="${roleDto}" method="post" class="row">
+              <div class="mb-3">
+                <label for="name" class="form-label">Role Name<span
+                        class="text-danger">*</span>
+                  <span class="text-danger" th:if="${#fields.hasErrors('name')}"
+                        th:errorclass="error" th:errors="*{name}"></span></label>
+                <input type="text" class="form-control"
+                       id="name" placeholder="Name" th:field="*{name}" >
+              </div>
+              <div class="mb-3">
+                <label for="status" class="form-label">Status<span
+                        class="text-danger">*</span>
+                  <span class="text-danger" th:if="${#fields.hasErrors('status')}"
+                        th:errorclass="error" th:errors="*{status}"></span></label>
+                <select class="form-control form-select" id="status" th:field="*{status}" >
+                  <option value="">Select Status</option>
+                  <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</th:block>
+</body>
+</html>

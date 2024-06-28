@@ -1,0 +1,67 @@
+<div class="pagination-footer pagination-sm align-items-center justify-content-between"
+     th:if="${totalElements>0}">
+                <span>
+                    Total Items [[${totalElements}]] : Page [[${currentPage}]] of [[${totalPages}]]
+                </span>
+  <th:block th:if="${totalPages>=1}">
+    <nav aria-label="...">
+      <ul class="pagination justify-content-center flex-warp">
+        <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+          <a th:href="@{${pageurlPrefix}+'1'+${pageUrlPostfix}}"
+             class="page-link">First</a>
+        </li>
+        <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+          <a th:href="@{${pageurlPrefix}+${currentPage-1}+${pageUrlPostfix}}"
+             class="page-link">Previous</a>
+        </li>
+        <th:block th:if="${totalPages<=10}">
+          <li th:each=" i: ${#numbers.sequence(1, totalPages)}"
+              th:class="${currentPage !=i ? 'page-item' : 'page-item active'}">
+            <a th:href="@{${pageurlPrefix}+${i}+${pageUrlPostfix}}"
+               class="page-link">[[${i}]]</a>
+          </li>
+        </th:block>
+
+        <th:block th:if="${totalPages>10}">
+          <th:block th:if="${currentPage <=5 || currentPage> totalPages-4}">
+            <li th:each=" i: ${#numbers.sequence(1, 5)}"
+                th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+              <a th:href="@{${pageurlPrefix}+${i}+${pageUrlPostfix}}"
+                 class="page-link">[[${i}]]</a>
+            </li>
+            <a th:href="@{${pageurlPrefix}+'6'+${pageUrlPostfix}}"
+               class="page-link">...</a>
+            <li th:each=" i: ${#numbers.sequence(totalPages-4, totalPages)}"
+                th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+              <a th:href="@{${pageurlPrefix}+${i}+${pageUrlPostfix}}"
+                 class="page-link">[[${i}]]</a>
+            </li>
+          </th:block>
+          <th:block th:if="${currentPage >5 && currentPage<=totalPages-4}">
+            <a th:href="@{${pageurlPrefix}+${currentPage-5}+${pageUrlPostfix}}"
+               class="page-link">...</a>
+            <li th:each=" i: ${#numbers.sequence(currentPage-4, currentPage+4)}"
+                th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+              <a th:href="@{${pageurlPrefix}+${i}+${pageUrlPostfix}}"
+                 class="page-link">[[${i}]]</a>
+            </li>
+            <a th:href="@{${pageurlPrefix}+${currentPage+5}+${pageUrlPostfix}}"
+               class="page-link">...</a>
+          </th:block>
+        </th:block>
+        <li th:class=" ${currentPage< totalPages ? 'page-item' : 'page-item disabled'}">
+          <a th:href="@{${pageurlPrefix}+${currentPage+1}+${pageUrlPostfix}}"
+             class="page-link">Next</a>
+        </li>
+        <li th:class=" ${currentPage< totalPages ? 'page-item' : 'page-item disabled'}">
+          <a th:href="@{${pageurlPrefix}+${totalPages}+${pageUrlPostfix}}"
+             class="page-link">Last</a>
+        </li>
+      </ul>
+    </nav>
+  </th:block>
+</div>
+<div class="pagination-footer pagination-sm align-items-center justify-content-between pb-3"
+     th:if="${totalElements<=0}">
+  <span>No Records Available</span>
+</div>

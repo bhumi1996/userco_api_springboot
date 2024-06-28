@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{fragments/admin_layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Setting Layout</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <section class="settings">
+            <div class="settings-wrapper">
+                <div class="container-fluid">
+                    <div class="row" >
+                        <div class="col-sm-12 col-md-2 p-0 ">
+                            <div class="settings-heading">
+                                <h1 >Settings</h1>
+                                <p><i class='bx bxs-home'></i><strong>User Settings</strong></p>
+                                <ul>
+                                    <li><a th:href="@{/admin/settings/role/list}">Roles</a></li>
+                                    <li><a th:href="@{/admin/settings/user/list}">User</a></li>
+                                    <li><a th:href="@{/admin/settings/privilege/list}">Privileges</a></li>
+                                </ul>
+                                <p><i class='bx bxs-home'></i><strong>General Settings</strong></p>
+                                <ul>
+                                    <li><a th:href="@{/admin/settings/portal/list}">Portal</a></li>
+                                    <li><a th:href="@{/admin/settings/country/list}">Country</a></li>
+                                    <li><a th:href="@{/admin/settings/campaign/type/list}">Campaign Type</a></li>
+                                </ul>
+                                <p><i class='bx bx-envelope'></i><strong>Email Settings</strong></p>
+                                <ul>
+                                    <li><a th:href="@{/admin/settings/email/config/list}">Email Configuration</a></li>
+                                    <li><a th:href="@{/admin/settings/email/template/list}">Email Template</a></li>
+                                </ul>
+                                <p><i class='bx bx-envelope'></i><strong>Website Settings</strong></p>
+                                <ul>
+                                    <li><a th:href="@{/admin/settings/service/list}">Service</a></li>
+                                    <li><a th:href="@{/admin/settings/testimonial/list}">Testimonial</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-10">
+                            <th:block layout:fragment="settings">
+
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </th:block>
+</body>
+</html>

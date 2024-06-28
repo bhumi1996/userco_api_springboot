@@ -1,0 +1,40 @@
+<!--    Remove Group Modal-->
+<div th:fragment="removeGroupModal" data-bs-backdrop="static" class="modal sub-modal" th:id="removeGroupModal+${item.uKey}" tabindex="-1" aria-labelledby="removeGroupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-6" id="removeGroupModalLabel">Remove Group for campaign- <span th:text="${item.name}"></span></h1>
+                <div class="modal-header__icon me-2">
+                    <button type="button" class="btn-close btn-close-m" data-bs-dismiss="modal" aria-label="Close">
+                        <i class='bx bx-x'></i></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="campaign-group__form p-3">
+                    <form th:action="@{/admin/campaign/{uKey}/remove/group(uKey=${item.uKey})}" th:object="${groupListDto}" method="post">
+                        <div class="form-row campaign-group-body">
+                            <div class="table-group">
+                                <ul class="d-flex align-item-center border-camp">
+                                    <li class="me-2 fw-bold">Select</li>
+                                    <li class="fw-bold">Group Name</li>
+                                </ul>
+                                <ul class="d-flex align-items-center" th:each="group,iter: ${item.groups}">
+                                    <li class="me-4">
+                                        <input type="checkbox" class="form-check-input" th:attr="name='groupList[__${iter.index}__]'" th:value="${group.uKey}">
+                                    </li>
+                                    <li class="fw-bold text-capitalize" th:text="${group.groupName}">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn--submit me-3">Remove</button>
+                            <button type="button" class="btn btn--submit " data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

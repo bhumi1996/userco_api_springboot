@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Assign Group</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+  <section class="setting-body-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 p-0">
+          <div class="setting-header">
+            <h1>Assign Group</h1>
+            <a th:href="@{/admin/campaign/list}" class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i class='bx bx-arrow-back' ></i><span class="go-back">Go Back</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="setting-body">
+            <form th:action="@{/admin/campaign/{uKey}/assign/group(uKey=${uKey})}" th:object="${groupListDto}" method="post" class="row">
+              <div class="row">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-floating mb-3">
+                    <select class="form-control form-select select2" th:field="*{groupList}" id="groupList" multiple="multiple">
+                      <option th:each="group: ${groupList}" th:text="${group.groupName}" th:value="${group.uKey}"></option>
+                    </select>
+                    <label for="groupList" class="form-label">Group<span class="text-danger">*</span>
+                    </label>
+                    <span class="text-danger" th:if="${#fields.hasErrors('groupList')}"
+                          th:errorclass="error" th:errors="*{groupList}"/>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn--submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</th:block>
+</body>
+</html>

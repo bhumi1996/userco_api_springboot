@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Group Leads</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>th:text="${groupName}"</h1>
+                        <a th:href="@{/admin/group/list}" class="btn btn-white btn-sm"><i class='bx bx-plus'></i>Go Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-10 col-lg-11">
+                    <div th:insert="~{fragments/_searching_layout}" id="searching"></div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1">
+                    <div class="col-auto">
+                        <a th:href="@{/admin/group/'+${uKey}+'/lead/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                                class='bx bx-filter-alt'></i>Clear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div th:insert="~{fragments/alert}" id="alert"></div>
+                <div class="col-sm-12">
+                    <div class="list-table-body table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Mobile No</th>
+                                    <th scope="col">Lead Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item:${list}">
+                                    <td class="text-capitalize" th:text="${item.leadName}"></td>
+                                    <td>
+                                        <span th:text="${item.email}" class="pe-1"></span>
+                                    </td>
+                                    <td th:text="${item.mobileNumber ne null ? item.mobileNumber : '-'}"></td>
+                                    <td th:text="${item.stage}">
+                                    </td>
+                                    <td >
+                                        <a  th:href="@{/admin/group/{uKey}/lead/remove/{leaduKey}(uKey=${uKey},leaduKey=${item.uKey})}"> <i class='bi bi-dash-circle fs-6 me-2 fw-bold' data-bs-toggle="tooltip" data-bs-title="Remove Lead"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{fragments/_pagination_layout}" id="pagination"></div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

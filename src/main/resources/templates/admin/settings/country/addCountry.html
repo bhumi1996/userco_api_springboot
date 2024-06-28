@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Country</title>
+</head>
+<body>
+<th:block layout:fragment="settings">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Create Country</h1>
+                        <a th:href="@{/admin/settings/country/list}" class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i class='bx bx-arrow-back' ></i><span class="go-back">Go Back</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <form th:action="@{/admin/settings/country/add}" th:object="${countryDto}" method="post" class="row">
+                           <div class="row">
+                               <div class="col-sm-6">
+                                   <label for="name" class="form-label">Country Name<span
+                                           class="text-danger">*</span>
+                                       <span class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                             th:errorclass="error" th:errors="*{name}"></span></label>
+                                   <input type="text" class="form-control"
+                                          id="name" placeholder="Name" th:field="*{name}" >
+                               </div>
+                               <div class="col-sm-6">
+                                   <label for="capital" class="form-label">Country Capital<span
+                                           class="text-danger">*</span>
+                                       <span class="text-danger" th:if="${#fields.hasErrors('capital')}"
+                                             th:errorclass="error" th:errors="*{capital}"></span></label>
+                                   <input type="text" class="form-control"
+                                          id="capital" placeholder="capital" th:field="*{capital}" >
+                               </div>
+                           </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="isoTwo" class="form-label">ISO Two<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('isoTwo')}"
+                                              th:errorclass="error" th:errors="*{isoTwo}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="isoTwo" placeholder="isoTwo" th:field="*{isoTwo}" >
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="isoThree" class="form-label">ISO Three<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('isoThree')}"
+                                              th:errorclass="error" th:errors="*{isoThree}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="isoThree" placeholder="capital" th:field="*{isoThree}" >
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-6">
+                                    <label for="isdCode" class="form-label">ISD Code<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('isdCode')}"
+                                              th:errorclass="error" th:errors="*{isdCode}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="isdCode" placeholder="isoTwo" th:field="*{isdCode}" >
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="status" class="form-label">Status<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('status')}"
+                                              th:errorclass="error" th:errors="*{status}"></span></label>
+                                    <select class="form-control form-select" id="status" th:field="*{status}" >
+                                        <option value="">Select Status</option>
+                                        <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class=" mt-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

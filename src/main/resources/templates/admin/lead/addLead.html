@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Customer</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Create Customer</h1>
+                        <a th:href="@{/admin/lead/list}" class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i class='bx bx-arrow-back' ></i><span class="go-back">Go Back</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <form th:action="@{/admin/lead/add}" th:object="${leadDto}" method="post" class="row">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="name" class="form-label">Customer Name<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('leadName')}"
+                                              th:errorclass="error" th:errors="*{leadName}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="name" placeholder="Name" th:field="*{leadName}" >
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="email" class="form-label">Customer Email<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                                              th:errorclass="error" th:errors="*{email}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="capital" placeholder="capital" th:field="*{email}" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <label for="dialCode" class="form-label">Dial Code<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('dialCode')}"
+                                              th:errorclass="error" th:errors="*{dialCode}"></span></label>
+                                    <select class="form-control form-select" id="dialCode" th:field="*{dialCode}" >
+                                        <option value="">Select Dial Code</option>
+                                        <option th:each="dial : ${countryList}" th:value="${dial.isdCode}" th:text="'( +'+${dial.isdCode}+' )' + ' ' + ${dial.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="mobileNumber" class="form-label">Mobile Number<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('mobileNumber')}"
+                                              th:errorclass="error" th:errors="*{mobileNumber}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="mobileNumber" placeholder="Mobile Number" th:field="*{mobileNumber}" >
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="country" class="form-label">Country<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('country')}"
+                                              th:errorclass="error" th:errors="*{country}"></span></label>
+                                    <select class="form-control form-select" id="country" th:field="*{country}" >
+                                        <option value="">Select Country</option>
+                                        <option th:each="country : ${countryList}" th:value="${country.name}" th:text="${country.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-4">
+                                    <label for="stage" class="form-label">Stage<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('stage')}"
+                                              th:errorclass="error" th:errors="*{stage}"></span></label>
+                                    <select class="form-control form-select" id="stage" th:field="*{stage}" >
+                                        <option value="">Select Stage</option>
+                                        <option th:each="stage : ${stageList}" th:value="${stage}" th:text="${stage}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="channel" class="form-label">Channel<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('channel')}"
+                                              th:errorclass="error" th:errors="*{channel}"></span></label>
+                                    <select class="form-control form-select" id="channel" th:field="*{channel}" >
+                                        <option value="">Select Channel</option>
+                                        <option th:each="channel : ${channelList}" th:value="${channel}" th:text="${channel}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="gender" class="form-label">Gender<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('gender')}"
+                                              th:errorclass="error" th:errors="*{gender}"></span></label>
+                                    <select class="form-control form-select" id="gender" th:field="*{gender}" >
+                                        <option value="">Select Gender</option>
+                                        <option th:each="gender : ${genderList}" th:value="${gender}" th:text="${gender}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class=" mt-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>
