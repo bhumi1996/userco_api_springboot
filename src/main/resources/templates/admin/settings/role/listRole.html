@@ -59,6 +59,8 @@
                             class='bx bx-trash text-danger'></i></a>
                     <a  th:href="@{/admin/settings/role/edit/{uKey}(uKey=${item.uKey})}" data-bs-toggle="tooltip" data-bs-title="Edit"><i
                             class='bx bxs-edit-alt'></i></a>
+                    <a sec:authorize="hasAuthority('PRIVILEGES_VIEWALL')" th:href="@{/admin/settings/privilege/listprivileges/{uKey}(uKey=${item.uKey})}"
+                       class="me-2" data-bs-toggle="tooltip" data-bs-title="Assign Privileges"><i class='bx bxs-edit-alt'></i></a>
                   </div>
                 </td>
               </tr>

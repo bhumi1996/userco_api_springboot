@@ -25,6 +25,16 @@
                         <form th:action="@{/admin/settings/email/config/add}" th:object="${emailConfigurationDto}"
                               method="post" class="row">
                             <div class="mb-3">
+                                <label for="portal" class="form-label">Portal<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('portalName')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="portal" th:field="*{portalName}" >
+                                    <option value="">Select Portal</option>
+                                    <option th:each="portal : ${portalList}" th:value="${portal}" th:text="${portal}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="name" class="form-label">Name<span
                                         class="text-danger">*</span> <span class="text-danger"
                                                                            th:if="${#fields.hasErrors('name')}"

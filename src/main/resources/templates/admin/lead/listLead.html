@@ -37,6 +37,7 @@
                             <thead>
                             <tr>
                                 <th>Sr. No</th>
+                                <th>Portal Name</th>
                                 <th>Customer Name</th>
                                 <th>Email</th>
                                 <th>Contact</th>
@@ -51,6 +52,7 @@
                             <tbody>
                             <tr th:each="item : ${list}">
                                 <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
+                                <td th:text="${item.portalName}"></td>
                                 <td th:text="${item.leadName}"></td>
                                 <td th:text="${item.email}"></td>
                                 <td th:text="'(+' + ${item.dialCode} + ') ' + ${item.mobileNumber}"></td>

@@ -23,6 +23,16 @@
                     <div class="setting-body">
                         <form th:action="@{/admin/settings/email/config/edit/{uKey}(uKey=${uKey})}" th:object="${emailConfigurationDto}" method="post" class="row">
                             <div class="mb-3">
+                                <label for="portal" class="form-label">Portal<span class="text-danger">*</span>
+                                    <span th:each="err : ${#fields.errors('portalName')}" th:text="${err}"
+                                          class="text-danger"/>
+                                </label>
+                                <select class="form-select" id="portal" th:field="*{portalName}" >
+                                    <option value="">Select Portal</option>
+                                    <option th:each="portal : ${portalList}" th:value="${portal}" th:text="${portal}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label for="name" class="form-label">Name<span
                                         class="text-danger">*</span> <span class="text-danger"
                                                                            th:if="${#fields.hasErrors('name')}"
@@ -30,7 +40,6 @@
                                                                            th:errors="*{name}"/></label>
                                 <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name" >
                             </div>
-
                             <div class="mb-3">
                                 <label for="encoding" class="form-label">Encoding<span class="text-danger">*</span>
                                     <span th:each="err : ${#fields.errors('encoding')}" th:text="${err}"

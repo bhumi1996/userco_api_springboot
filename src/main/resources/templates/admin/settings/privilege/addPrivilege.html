@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Privileges List</title>
+</head>
+<body>
+
+<th:block layout:fragment="settings">
+  <div class="setting-body-wrapper settings-sidebar-layout">
+    <div class="container-fluid">
+
+
+
+      <div class="row">
+        <div class="col-sm-12 p-0">
+          <div class="setting-header">
+            <h1>Privilege Management : [[${role}]]</h1>
+            <a th:href="@{/admin/settings/role/list}" class="btn btn--white btn-sm"><i
+                    class='bi bi-arrow-left'></i>Go Back</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="setting-body">
+
+            <div th:insert="~{fragments/alert}" id="alert"></div>
+            <form th:action="@{/admin/settings/privilege/listprivileges/{uKey}(uKey=${uKey})}"
+                  th:object="${privilegeAssignListDto}" method="post" class="row">
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="user">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      User Management System
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="user" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                          <td colspan="6" class="fw-bold">
+                            User
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Module Name</th>
+                          <th>Read</th>
+                          <th>Read All</th>
+                          <th>Add</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody class="user">
+                        <th:block th:each="privilage,stat : ${list}">
+                          <tr th:if="${privilage['key'] eq 'Users' || privilage['key'] eq 'Roles' ||privilage['key'] eq 'Privileges'}">
+                            <td><p th:text="${privilage['key']}"></p>
+                              <input type="hidden"
+                                     th:attr="name='privilegeAssignList[__${stat.index}__].module'"
+                                     th:value="${privilage['key']}"/>
+                            </td>
+                            <th:block th:with="innerMap=${privilage['value']}">
+                              <th:block th:each="map:${innerMap}">
+                                <th:block th:if="${map['key'] eq 'READ'}">
+                                  <td><input type="checkbox"
+                                             th:attr="name='privilegeAssignList[__${stat.index}__].privilegeRead'"
+                                             th:if="${map['value'] !=null}"
+                                             th:checked="${map['value'] =='Yes' ? true : false}"><span
+                                          th:text="${map['value']==null ? '-': ''}"></span></td>
+                                </th:block>
+                                <th:block th:if="${map['key'] eq 'VIEWALL'}">
+                                  <td><input type="checkbox"
+                                             th:attr="name='privilegeAssignList[__${stat.index}__].privilegeViewAll'"
+                                             th:if="${map['value'] !=null}"
+                                             th:checked="${map['value'] =='Yes' ? true : false}"><span
+                                          th:text="${map['value']==null ? '-': ''}"></span></td>
+                                </th:block>
+                                <th:block th:if="${map['key'] eq 'CREATE'}">
+                                  <td><input type="checkbox"
+                                             th:attr="name='privilegeAssignList[__${stat.index}__].privilegeCreate'"
+                                             th:if="${map['value'] !=null}"
+                                             th:checked="${map['value'] =='Yes' ? true : false}"><span
+                                          th:text="${map['value']==null ? '-': ''}"></span></td>
+                                </th:block>
+                                <th:block th:if="${map['key'] eq 'UPDATE'}">
+                                  <td><input type="checkbox"
+                                             th:attr="name='privilegeAssignList[__${stat.index}__].privilegeUpdate'"
+                                             th:if="${map['value'] !=null}"
+                                             th:checked="${map['value'] =='Yes' ? true : false}"><span
+                                          th:text="${map['value']==null ? '-': ''}"></span></td>
+                                </th:block>
+                                <th:block th:if="${map['key'] eq 'DELETE'}">
+                                  <td><input type="checkbox"
+                                             th:attr="name='privilegeAssignList[__${stat.index}__].privilegeDelete'"
+                                             th:if="${map['value'] !=null}"
+                                             th:checked="${map['value'] =='Yes' ? true : false}"><span
+                                          th:text="${map['value']==null ? '-': ''}"></span></td>
+                                </th:block>
+                              </th:block>
+                            </th:block>
+                          </tr>
+                        </th:block>
+                        </tbody>
+
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="text-center pb-2 mt-3">
+                <button type="submit" class="btn btn--submit">Submit</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+</body>
+</html>

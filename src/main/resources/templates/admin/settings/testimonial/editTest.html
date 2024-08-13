@@ -21,7 +21,22 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="setting-body">
-                        <form th:action="@{/admin/settings/testimonial/edit(uKey=${uKey})}" th:object="${testimonialDto}" method="post" class="row">
+                        <form th:action="@{/admin/settings/testimonial/edit/{uKey}(uKey=${uKey})}" th:object="${testimonialDto}" method="post" class="row" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="portal" th:field="*{portalName}" >
+                                            <option value="">Select Portal</option>
+                                            <option th:each="portal : ${portalList}" th:value="${portal}" th:text="${portal}"></option>
+                                        </select>
+                                        <label for="portal">Portal<span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('portalName')}"
+                                              th:errorclass="error" th:errors="*{portalName}"></span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-12">
                                     <div class="form-floating mb-3">

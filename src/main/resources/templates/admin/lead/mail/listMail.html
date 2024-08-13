@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> Customer List</title>
 </head>
 <body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Customer Email</h1>
+                        <i class="bi bi-arrow-left"></i>
+                        <a th:href="@{/admin/lead/list}" class="btn btn-white btn-sm"><i class='bx bx-plus'></i>Go Back</a>
+                        <a th:href="@{/admin/lead/{leaduKey}/mail/add(leaduKey=${leaduKey})}"  class="btn btn-white btn-sm"><i class='bx bx-plus'></i>Email</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-10 col-lg-11">
+                    <div th:insert="~{fragments/_searching_layout}" id="searching"></div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1">
+                    <div class="col-auto">
+                        <a th:href="@{/admin/lead/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                                class='bx bx-filter-alt'></i>Clear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div th:insert="~{fragments/alert}" id="alert"></div>
+                <div class="col-sm-12">
+                    <div class="list-table-body table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
 
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${list}">
+                                <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
+                                <td th:text="${item.email}"></td>
+                                <td th:class="${item.status}"><span class="table-status"><i
+                                        class='bx bxs-circle'></i><span th:text="${item.status}"></span></span></td>
+                                <td>
+                                    <div class="btn-group application-action">
+                                        <a class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                                           role="button">
+                                            <i class='bx bx-dots-vertical-rounded'></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end me-3">
+                                            <li data-bs-toggle="tooltip" data-bs-title="View">
+                                                <a class="dropdown-item" target="_blank"
+                                                   th:href="@{/admin/lead/{uKey}/view(uKey=${item.uKey})}"><i
+                                                        class='bx bx-show me-2 fw-bold'></i><span>View</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{fragments/_pagination_layout}" id="pagination"></div>
+        </div>
+    </section>
+</th:block>
 </body>
 </html>

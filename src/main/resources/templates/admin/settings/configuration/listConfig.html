@@ -39,6 +39,7 @@
                             <thead>
                             <tr>
                                 <th>Sr. No</th>
+                                <th>Portal</th>
                                 <th>Name</th>
                                 <th>Encoding</th>
                                 <th>Port</th>
@@ -54,6 +55,7 @@
                             <tbody>
                             <tr th:each="item: ${list}">
                                 <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
+                                <td th:text="${item.portalName}"></td>
                                 <td th:text="${item.name}"></td>
                                 <td th:text="${item.encoding}"></td>
                                 <td th:text="${item.port}"></td>

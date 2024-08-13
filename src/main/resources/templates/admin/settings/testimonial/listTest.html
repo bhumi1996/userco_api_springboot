@@ -37,7 +37,9 @@
                             <thead>
                             <tr>
                                 <th>Sr. No</th>
+                                <th>Portal Name</th>
                                 <th>Name</th>
+                                <th>Designation</th>
                                 <th>Updated On</th>
                                 <th>Updated By</th>
                                 <th>Status</th>
@@ -48,7 +50,9 @@
                             <tbody>
                             <tr th:each="item : ${list}">
                                 <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
+                                <td th:text="${item.portalName}"></td>
                                 <td th:text="${item.name}"></td>
+                                <td th:text="${item.designation}"></td>
                                 <td th:text="${#dates.format(item.lastModifiedDate,'dd MMM yyyy')}"></td>
                                 <td th:text="${item.lastModifiedBy}"></td>
                                 <td th:class="${item.status}"><span class="table-status"><i

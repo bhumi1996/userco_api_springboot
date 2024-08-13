@@ -23,7 +23,17 @@
                     <div class="setting-body">
                         <form th:action="@{/admin/lead/add}" th:object="${leadDto}" method="post" class="row">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <label for="stage" class="form-label">Portal<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('portalName')}"
+                                              th:errorclass="error" th:errors="*{portalName}"></span></label>
+                                    <select class="form-control form-select" id="portal" th:field="*{portalName}" >
+                                        <option value="">Select Portal</option>
+                                        <option th:each="portal : ${portalList}" th:value="${portal}" th:text="${portal}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
                                     <label for="name" class="form-label">Customer Name<span
                                             class="text-danger">*</span>
                                         <span class="text-danger" th:if="${#fields.hasErrors('leadName')}"
@@ -31,7 +41,7 @@
                                     <input type="text" class="form-control"
                                            id="name" placeholder="Name" th:field="*{leadName}" >
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <label for="email" class="form-label">Customer Email<span
                                             class="text-danger">*</span>
                                         <span class="text-danger" th:if="${#fields.hasErrors('email')}"

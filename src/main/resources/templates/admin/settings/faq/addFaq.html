@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Faq</title>
+    <th:block th:replace="~{fragments/tinymce_layout :: tinymce}"></th:block>
+    <script>
+        tinymce.init({
+            selector:'textarea.tiny-body',
+            height:300,
+            plugins:[
+                'advlist','autolink','link','image','lists','charmap','preview','anchor','pagebreak','searchreplace',
+                'wordcount','code','fullscreen','insertdatetime','media','table','template','codesimple'
+            ],
+            toolbar:'undo redo | style | bold italic underline |blocks fontfamily fontsize | alignleft aligncenter, alignright alignjustify |'+
+                'bullist numlist outdent indent| link image | print preview media fullscreen |'+'forecolor backcolor emoticons',
+            menubar: 'favs file edit view insert formate tools table',
+            content_style:'body{font-family:Arial,sans-serif;font-size:16px}'
+        });
+    </script>
+</head>
+<body>
+<th:block layout:fragment="settings">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Create Faq</h1>
+                        <a th:href="@{/admin/settings/faq/list}" class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i class='bx bx-arrow-back' ></i><span class="go-back">Go Back</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <form th:action="@{/admin/settings/faq/add}" th:object="${faqDto}" method="post" class="row">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="faqQuestion" class="form-label">FAQ Question<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('faqQuestion')}"
+                                              th:errorclass="error" th:errors="*{faqQuestion}"></span></label>
+                                    <input type="text" class="form-control"
+                                           id="faqQuestion" placeholder="Template Heading" th:field="*{faqQuestion}" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="faqAnswer" class="form-label">Template<span
+                                                class="text-danger mb-2">*</span>
+                                        </label>
+                                        <textarea  id="faqAnswer" th:field="*{faqAnswer}"
+                                                   class="form-control tiny-body" rows="5" placeholder="Write Your Answer Here......"></textarea>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('faqAnswer')}"
+                                              th:errorclass="error" th:errors="*{faqAnswer}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="status" class="form-label">Status<span
+                                            class="text-danger">*</span>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('status')}"
+                                              th:errorclass="error" th:errors="*{status}"></span></label>
+                                    <select class="form-control form-select" id="status" th:field="*{status}" >
+                                        <option value="">Select Status</option>
+                                        <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class=" mt-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/settings_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Privileges List</title>
+</head>
+<body>
+
+<th:block layout:fragment="settings">
+    <div class="setting-body-wrapper settings-sidebar-layout">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Privilege Management</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="user">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        User Management System
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="user" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <td colspan="6" class="fw-bold">
+                                                    User
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Module Name</th>
+                                                <th>Read</th>
+                                                <th>Read All</th>
+                                                <th>Add</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <th:block th:each="privilage : ${list}">
+                                                <tr>
+                                                    <th:block
+                                                            th:if="${privilage['key'] eq 'Users' || privilage['key'] eq 'Roles' ||privilage['key'] eq 'Privileges'}">
+                                                        <td th:text="${privilage['key']}"></td>
+                                                        <th:block th:with="innerMap=${privilage['value']}">
+                                                            <th:block th:each="map:${innerMap}">
+                                                                <th:block th:if="${map['key'] eq 'READ'}">
+                                                                    <td th:text="${map['value']}"></td>
+                                                                </th:block>
+                                                                <th:block th:if="${map['key'] eq 'VIEWALL'}">
+                                                                    <td th:text="${map['value']}"></td>
+                                                                </th:block>
+                                                                <th:block th:if="${map['key'] eq 'CREATE'}">
+                                                                    <td th:text="${map['value']}"></td>
+                                                                </th:block>
+                                                                <th:block th:if="${map['key']=='UPDATE'}">
+                                                                    <td th:text="${map['value']}"></td>
+                                                                </th:block>
+                                                                <th:block th:if="${map['key']=='DELETE'}">
+                                                                    <td th:text="${map['value']}"></td>
+                                                                </th:block>
+                                                            </th:block>
+                                                        </th:block>
+                                                    </th:block>
+                                                </tr>
+                                            </th:block>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

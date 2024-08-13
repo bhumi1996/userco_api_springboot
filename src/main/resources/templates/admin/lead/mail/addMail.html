@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Mail</title>
 </head>
 <body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Create Mail</h1>
+                        <a th:href="@{/admin/lead/{leaduKey}/mail/list(leaduKey=${leaduKey})}"  class="btn btn-white btn-sm" data-bs-toggle="tooltip" data-bs-title="Go Back"><i class='bx bx-arrow-back' ></i><span class="go-back">Go Back</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <form   th:href="@{/admin/lead/{leaduKey}/mail/add(leaduKey=${leaduKey})}" th:object="${leadMailDto}" method="post" class="row">
 
+                            <div class="mb-3">
+                                <div><span th:texr="${name}"></span></div>
+                                <div><span  th:text="${email}"></span></div>
+                                <div><span th:text="${templateName}"></span></div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Subject<span
+                                        class="text-danger">*</span>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('subject')}"
+                                          th:errorclass="error" th:errors="*{subject}"></span></label>
+                                <input type="text" class="form-control"
+                                       id="name" placeholder="Name" th:field="*{subject}" >
+
+                            </div>
+                            <div class="mb-3">
+                                <textarea rows="5" class="form-control"
+                                          placeholder="Type..." th:field="*{message}"></textarea>
+                                <span class="text-danger" th:if="${#fields.hasErrors('message')}"
+                                      th:errorclass="error" th:errors="*{message}"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
 </body>
 </html>

@@ -32,40 +32,45 @@
             <div class="row">
                 <div th:insert="~{fragments/alert}" id="alert"></div>
                 <div class="col-sm-12">
-                    <div class="list-table-body table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col">Sr. No</th>
-                                <th scope="col">Portal Name</th>
-                                <th scope="col">Short Name</th>
-                                <th scope="col">Updated On</th>
-                                <th scope="col">Updated By</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </tr>
+                    <div class="portal">
+                        <div class="portal-card row" th:each="item : ${list}">
+                            <div class="col-12 portal-header">
+                                <img src="https://tse2.mm.bing.net/th?id=OIP.7NnC6O0Nu8lqxHKpZeSv2gHaHw&pid=Api&P=0&h=180" alt="" width="50px">
+                            </div>
+                            <div class="col-12 portal-main">
+                                <div class="col-12">
+                                    <h2 style="font-size: 20px;" class="text-center mt-2"><span th:text="${item.portalName}"></span> - <span th:text="${item.shortName}"></span></h2>
+                                    <p class="text-center"> <i class="bi bi-envelope"></i> <span th:text="${item.supportEmail}"></span></p>
+                                    <p class="text-center"> <i class="bi bi-telephone"></i> <span th:text="${item.whatsAppNo}"></span></p>
 
-                            </thead>
-                            <tbody>
-                            <tr th:each="item : ${list}">
-                                <td th:text="${itemStat.count+(currentPage-1)*size}"></td>
-                                <td th:text="${item.portalName}"></td>
-                                <td th:text="${item.shortName}"></td>
-                                <td th:text="${#dates.format(item.lastModifiedDate,'dd MMM yyyy')}"></td>
-                                <td th:text="${item.lastModifiedBy}"></td>
-                                <td th:class="${item.status}"><span class="table-status"><i
-                                        class='bx bxs-circle'></i><span th:text="${item.status}"></span></span></td>
-                                <td>
-                                    <div class="actions">
-                                        <a class="me-2"  th:href="@{/admin/settings/portal/delete/{uKey}(uKey=${item.uKey})}"  onclick="return confirmDelete()" data-bs-toggle="tooltip" data-bs-title="delete"><i
-                                                class='bx bx-trash text-danger'></i></a>
-                                        <a  th:href="@{/admin/settings/portal/edit/{uKey}(uKey=${item.uKey})}" data-bs-toggle="tooltip" data-bs-title="Edit"><i
-                                                class='bx bxs-edit-alt'></i></a>
+                                    <p class="text-center p-2 mt-2" th:text="${item.address}"></p>
+                                </div>
+                                <div>
+                                    <ul class="portal-social">
+                                        <li><a href=""><i class="bi bi-facebook"></i></a></li>
+                                        <li><a href=""><i class="bi bi-linkedin"></i></a></li>
+                                        <li><a href=""><i class="bi bi-whatsapp"></i></a></li>
+                                        <li><a href=""><i class="bi bi-instagram"></i></a></li>
+                                        <li><a href=""><i class="bi bi-youtube"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12 portal-footer">
+                                <div class="row">
+                                    <div class="d-flex justify-content-center links">
+                                        <a  th:href="@{/admin/settings/portal/edit/{uKey}(uKey=${item.uKey})}" class="btn" data-bs-toggle="tooltip" data-bs-title="Edit">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <a th:href="@{/admin/settings/portal/delete/{uKey}(uKey=${item.uKey})}" onclick="return confirmDelete()"   data-bs-toggle="tooltip" data-bs-title="delete" class="btn">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
                                     </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    <p class="text-center">
+                                        <span th:text="${item.copyright}"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

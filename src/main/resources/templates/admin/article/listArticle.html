@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper mx-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Article</h1>
+                        <div class="setting-header_button">
+                            <button class="btn btn--drop-action mobile-menu-action filter-action" type="button"><i class="bi bi-funnel"></i></button>
+                            <button class="btn btn--drop-action mobile-menu-action p-0" type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <div class="mobile-menu dropdown-menu">
+                                <a th:href="@{/admin/article/add}"
+                                   class="btn btn--white dropdown-item"><i class="bi bi-plus"></i>Article</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-12 col-md-10 col-lg-11">
+                    <div th:insert="~{fragments/_searching_layout}" id="searching"></div>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1">
+                    <div class="col-auto">
+                        <a th:href="@{/admin/article/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                                class='bx bx-filter-alt'></i>Clear</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <th:block th:insert="~{fragments/alert}" id="alert"></th:block>
+                        <div class="setting-body__article">
+                            <th:block th:each="item : ${list}">
+                                <a title="Click For View" th:href="@{/admin/article/view/{uKey}(uKey=${item.uKey})}">
+                                    <div class="setting-body__article-card">
+                                        <div class="setting-body__article-card--image">
+                                            <th:block th:if="${item.imageUrl eq null}">
+                                                <img th:src="@{/images/default-image.jpg}" alt="poster" width="200px"
+                                                     height="200px">
+                                            </th:block>
+
+<!--                                            <th:block th:if="${item.imageUrl ne null}">-->
+<!--                                                <img th:src="@{${hostname}+${item.postImage}}" alt="poster" width="200px" height="200px">-->
+<!--                                            </th:block>-->
+                                        </div>
+                                        <div class="setting-body__article-card--content">
+                                            <div class="setting-body__article-card--content__left">
+                                                <h1 th:text="${item.heading}"></h1>
+                                                <h4 th:text="${item.title}"></h4>
+                                                <div class="article-body__description">
+                                                    [[${item.description}]]
+                                                </div>
+                                                <div class="setting-body__article-card__footer">
+                                                    <ul>
+                                                        <li><i class="bi bi-person me-1"></i> [[${item.lastModifiedBy}]]
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="setting-body__article-card--content__list">
+                                                    <ul>
+                                                        <li class="article-portal-bg"><span th:text="${item.portalName}"></span></li>
+                                                        <li th:class="${item.status}"><span class="table-status"><span
+                                                                th:text="${item.status}"></span></span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="setting-body__article-card--content--right">
+                                                <div class="setting-body__article-card--action">
+                                                    <button class="btn btn--drop-action p-0" type="button"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                        <i class="bi bi-three-dots-vertical"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li
+                                                            data-bs-toggle="tooltip" data-bs-title="Edit">
+                                                            <a th:href="@{/admin/article/edit/{uKey}(uKey=${item.uKey})}"
+                                                               class="dropdown-item">
+                                                                <i class="bi bi-pencil-square me-2"></i> Edit
+                                                            </a>
+                                                        </li>
+                                                        <li
+                                                            data-bs-toggle="tooltip" data-bs-title="View">
+                                                            <a th:href="@{/admin/article/view/{uKey}(uKey=${item.uKey})}"
+                                                               class="dropdown-item">
+                                                                <i class="bi bi-eye me-2"></i> View
+                                                            </a>
+                                                        </li>
+                                                        <li
+                                                            data-bs-toggle="tooltip" data-bs-title="Delete">
+                                                            <a th:href="@{/admin/article/delete/{uKey}(uKey=${item.uKey})}"
+                                                               onclick="return confirmDelete()" class="dropdown-item">
+                                                                <i class="bi bi-trash me-2"></i> Delete</a>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </th:block>
+                            <div th:insert="~{fragments/_pagination_layout}" id="pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-1">
                     <div class="col-auto">
-                        <a th:href="@{/admin/settings/email/Template/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
+                        <a th:href="@{/admin/settings/email/template/list}" class="btn btn-primary btn-clear d-flex align-items-center"><i
                                 class='bx bx-filter-alt'></i>Clear</a>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
                                         class='bx bxs-circle'></i><span th:text="${item.status}"></span></span></td>
                                 <td>
                                     <div class="actions">
-                                        <a class="me-2"  th:href="@{/admin/settings/country/delete/{uKey}(uKey=${item.uKey})}"  onclick="return confirmDelete()" data-bs-toggle="tooltip" data-bs-title="delete"><i
+                                        <a class="me-2"  th:href="@{/admin/settings/email/template/delete/{uKey}(uKey=${item.uKey})}"  onclick="return confirmDelete()" data-bs-toggle="tooltip" data-bs-title="delete"><i
                                                 class='bx bx-trash text-danger'></i></a>
-                                        <a  th:href="@{/admin/settings/country/edit/{uKey}(uKey=${item.uKey})}" data-bs-toggle="tooltip" data-bs-title="Edit"><i
+                                        <a  th:href="@{/admin/settings/email/template/edit/{uKey}(uKey=${item.uKey})}" data-bs-toggle="tooltip" data-bs-title="Edit"><i
                                                 class='bx bxs-edit-alt'></i></a>
                                     </div>
                                 </td>

@@ -24,6 +24,13 @@
             <option th:each="p : ${templateList}" th:value="${p}" th:text="${p}" th:selected="${p == template}"></option>
           </select>
         </div>
+        <div class="col-sm-2" th:if="${!#lists.isEmpty(portalList)}">
+          <label class="form-label" >Portal</label>
+          <select class="form-control form-select" id="portal" name="template">
+            <option value="">Select Portal</option>
+            <option th:each="p : ${portalList}" th:value="${p}" th:text="${p}" th:selected="${p == portal}"></option>
+          </select>
+        </div>
         <div class="col-auto flex-grow-1">
           <label class="form-label">Search</label>
           <div class="input-group">

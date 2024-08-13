@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Article</title>
+    <th:block th:replace="~{fragments/tinymce_layout :: tinymce}"></th:block>
+    <script>
+        tinymce.init({
+            selector: 'textarea.tiny-body',
+            height: 300,
+            plugins:[
+                'advlist','autolink','link','image','lists','charmap','preview','anchor','pagebreak','searchreplace',
+                'wordcount','code','fullscreen','insertdatetime','media','table','template','codesimple'
+            ],
+            toolbar:'undo redo | style | bold italic underline |blocks fontfamily fontsize | alignleft aligncenter, alignright alignjustify |'+
+                'bullist numlist outdent indent| link image | print preview media fullscreen |'+'forecolor backcolor emoticons',
+            menubar: 'favs file edit view insert formate tools table',
+            content_style:'body{font-family:Arial,sans-serif;font-size:16px}'
+        });
+    </script>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section class="setting-body-wrapper mx-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 p-0">
+                    <div class="setting-header">
+                        <h1>Update Article </h1>
+                        <a th:href="@{/admin/article/list}" class="btn btn--white"><i class="bi bi-arrow-left"></i>Go Back</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-sm-12">
+                    <div class="setting-body">
+                        <form th:action="@{/admin/article/edit{uKey}(uKey=${uKey})}" th:object="${articleDto}" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-control form-select select2 submitOnChange" th:field="*{portalName}" id="portalName">
+                                            <option value="">Select Portal</option>
+                                            <option th:each="pl: ${portalList}" th:value="${pl}" th:text="${pl}"></option>
+                                        </select>
+                                        <label for="portalName" class="form-label">Portal Name<span class="text-danger">*</span>
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('portalName')}"
+                                              th:errorclass="error" th:errors="*{portalName}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" th:field="*{heading}" id="heading"
+                                               placeholder="Article Title">
+                                        <label for="heading">Article Heading<span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('heading')}"
+                                              th:errorclass="error" th:errors="*{heading}"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" th:field="*{title}" id="title"
+                                               placeholder="Article Title">
+                                        <label for="heading">Article Title<span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('title')}"
+                                              th:errorclass="error" th:errors="*{title}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" th:field="*{url}" id="url"
+                                               placeholder="Article Url">
+                                        <label for="heading">Article Url<span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('url')}"
+                                              th:errorclass="error" th:errors="*{url}"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-control form-select select2" th:field="*{status}" id="status">
+                                            <option value="">Select Status</option>
+                                            <option th:each="p: ${statusList}" th:value="${p}" th:text="${p}"></option>
+                                        </select>
+                                        <label for="status" class="form-label">Status<span class="text-danger">*</span>
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('status')}"
+                                              th:errorclass="error" th:errors="*{status}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Article Description<span class="text-danger mb-2">*</span>
+                                        </label>
+                                        <textarea id="description" th:field="*{description}"
+                                                  class="form-control tiny-body" rows="5" placeholder="Article Description"></textarea>
+
+                                        <span class="text-danger" th:if="${#fields.hasErrors('description')}"
+                                              th:errorclass="error" th:errors="*{description}"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Article Short Description<span class="text-danger mb-2">*</span>
+                                        </label>
+                                        <textarea id="shortDescription" th:field="*{shortDescription}"
+                                                  class="form-control tiny-body" rows="5" placeholder="Article Short Description"></textarea>
+
+                                        <span class="text-danger" th:if="${#fields.hasErrors('shortDescription')}"
+                                              th:errorclass="error" th:errors="*{shortDescription}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="file" class="form-control" th:field="*{image}" id="postImageUrl"
+                                               placeholder="Post Image Url">
+                                        <label for="postImageUrl">Post Image Url
+                                        </label>
+                                        <span class="text-danger" th:if="${#fields.hasErrors('image')}"
+                                              th:errorclass="error" th:errors="*{image}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn--submit">Update
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</body>
+</html>

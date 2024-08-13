@@ -23,12 +23,12 @@
                     <div class="setting-body">
                         <form  th:action="@{/admin/settings/campaign/type/edit/{uKey}(uKey=${uKey})}" th:object="${campaignTypeDto}" method="post" class="row">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Role Name<span
+                                <label for="name" class="form-label">Campaign Type<span
                                         class="text-danger">*</span>
                                     <span class="text-danger" th:if="${#fields.hasErrors('type')}"
-                                          th:errorclass="error" th:errors="*{type}" /></label>
+                                          th:errorclass="error" th:errors="*{type}"></span></label>
                                 <input type="text" class="form-control"
-                                       id="name" placeholder="Name th:field="*{type}">
+                                       id="name" placeholder="Name" th:field="*{type}" >
                             </div>
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status<span
